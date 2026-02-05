@@ -1319,9 +1319,14 @@ body {
 
     .hero {
         height: auto;
-        min-height: 100vh;
+        min-height: 100svh;
         padding-top: var(--spacing-4xl);
         padding-bottom: var(--spacing-2xl);
+        align-items: flex-start;
+    }
+
+    .hero-content-centered {
+        margin-top: var(--spacing-lg);
     }
 
     .hero-title-main {
@@ -1401,6 +1406,7 @@ body {
 @media (max-width: 640px) {
     .hero {
         padding-top: var(--spacing-4xl);
+        min-height: 100svh;
     }
 
     .hero-title-main {
