@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
@@ -30,10 +30,12 @@
 
         .experience-title {
             font-family: var(--font-display);
-            font-size: 3.5rem;
+            font-size: clamp(2.5rem, 8vw, 4rem);
             margin-bottom: var(--spacing-lg);
             color: var(--color-neutral-900);
-            font-weight: 500;
+            font-weight: 600;
+            letter-spacing: var(--tracking-tighter);
+            line-height: 1.1;
         }
 
         .experience-subtitle {
@@ -41,6 +43,7 @@
             color: var(--color-neutral-600);
             line-height: 1.8;
             margin-bottom: var(--spacing-2xl);
+            letter-spacing: var(--tracking-wide);
         }
 
         .modules-grid {
@@ -58,7 +61,7 @@
             border: 1px solid var(--glass-border);
             box-shadow: var(--glass-shadow);
             padding: var(--spacing-2xl);
-            transition: all var(--transition-base);
+            transition: all var(--transition-slow);
         }
 
         .module-card:hover {
@@ -194,7 +197,19 @@
     <nav class="nav">
         <div class="nav-container">
             <a href="index.html" class="logo">
-                <span class="logo-icon">✦</span>
+                <div class="logo-visual">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16 2L19.5 12.5L30 16L19.5 19.5L16 30L12.5 19.5L2 16L12.5 12.5L16 2Z"
+                            fill="url(#logo_grad_exp)" />
+                        <defs>
+                            <linearGradient id="logo_grad_exp" x1="2" y1="2" x2="30" y2="30"
+                                gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#a78bfa" />
+                                <stop offset="1" stop-color="#7dd3fc" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
                 <span class="logo-text">AURA</span>
             </a>
             <div class="nav-links">
@@ -393,7 +408,19 @@
     <footer class="footer">
         <div class="footer-simple">
             <div class="logo">
-                <span class="logo-icon">✦</span>
+                <div class="logo-visual">
+                    <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16 2L20.1 11.9L30 16L20.1 20.1L16 30L11.9 20.1L2 16L11.9 11.9L16 2Z"
+                            fill="url(#logo_grad_exp_f)" />
+                        <defs>
+                            <linearGradient id="logo_grad_exp_f" x1="2" y1="2" x2="30" y2="30"
+                                gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#a78bfa" />
+                                <stop offset="1" stop-color="#7dd3fc" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
                 <span class="logo-text">AURA</span>
             </div>
             <div class="footer-links-simple">
