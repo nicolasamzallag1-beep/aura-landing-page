@@ -428,5 +428,82 @@ class ZenMusicPlayer {
 // Initialize the zen music player
 const zenMusic = new ZenMusicPlayer();
 
+// ===========================
+// Zen Carousel Auto-play
+// ===========================
+class ZenCarousel {
+    constructor() {
+        this.currentSlide = 0;
+        this.slides = document.querySelectorAll('.carousel-slide');
+        this.dots = document.querySelectorAll('.carousel-dots .dot');
+        this.autoPlayInterval = null;
+        this.autoPlayDelay = 5000; // 5 seconds
+
+        this.init();
+    }
+
+    init() {
+        if (this.slides.length === 0) return;
+
+        // Add click handlers to dots
+        this.dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                this.goToSlide(index);
+                this.resetAutoPlay();
+            });
+        });
+
+        // Pause on hover
+        const carousel = document.querySelector('.zen-carousel');
+        if (carousel) {
+            carousel.addEventListener('mouseenter', () => this.pauseAutoPlay());
+            carousel.addEventListener('mouseleave', () => this.startAutoPlay());
+        }
+
+        // Start auto-play
+        this.startAutoPlay();
+    }
+
+    goToSlide(index) {
+        // Remove active class from current slide and dot
+        this.slides[this.currentSlide].classList.remove('active');
+        this.dots[this.currentSlide].classList.remove('active');
+
+        // Update current slide
+        this.currentSlide = index;
+
+        // Add active class to new slide and dot
+        this.slides[this.currentSlide].classList.add('active');
+        this.dots[this.currentSlide].classList.add('active');
+    }
+
+    nextSlide() {
+        const nextIndex = (this.currentSlide + 1) % this.slides.length;
+        this.goToSlide(nextIndex);
+    }
+
+    startAutoPlay() {
+        this.autoPlayInterval = setInterval(() => {
+            this.nextSlide();
+        }, this.autoPlayDelay);
+    }
+
+    pauseAutoPlay() {
+        if (this.autoPlayInterval) {
+            clearInterval(this.autoPlayInterval);
+            this.autoPlayInterval = null;
+        }
+    }
+
+    resetAutoPlay() {
+        this.pauseAutoPlay();
+        this.startAutoPlay();
+    }
+}
+
+// Initialize the zen carousel
+const zenCarousel = new ZenCarousel();
+
 console.log('🌟 AURA - Votre sanctuaire de bien-être mental est prêt');
 console.log('🎵 Lecteur de musique zen initialisé');
+console.log('🎠 Carrousel zen initialisé');
