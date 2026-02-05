@@ -1510,6 +1510,10 @@ body {
         border-right: none;
         border-bottom: none;
     }
+
+    .cta-title {
+        font-size: 1.75rem;
+    }
 }
 
 /* ===========================
