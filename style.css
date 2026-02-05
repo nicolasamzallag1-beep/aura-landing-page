@@ -111,7 +111,7 @@ body {
     left: 0;
     right: 0;
     z-index: 1000;
-    padding: var(--spacing-md) 0;
+    padding: var(--spacing-sm) 0;
     background: var(--glass-bg);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
@@ -1313,6 +1313,17 @@ body {
    Responsive Design
    =========================== */
 @media (max-width: 968px) {
+    .nav {
+        padding: var(--spacing-xs) 0;
+    }
+
+    .hero {
+        height: auto;
+        min-height: 100vh;
+        padding-top: var(--spacing-4xl);
+        padding-bottom: var(--spacing-2xl);
+    }
+
     .hero-title-main {
         font-size: 3.5rem;
     }
@@ -1388,17 +1399,28 @@ body {
 }
 
 @media (max-width: 640px) {
+    .hero {
+        padding-top: var(--spacing-4xl);
+    }
+
     .hero-title-main {
         font-size: 2.5rem;
+        margin-bottom: var(--spacing-md);
     }
 
     .hero-subtitle {
         font-size: 1rem;
+        margin-bottom: var(--spacing-xl);
+    }
+
+    .section {
+        padding: var(--spacing-2xl) var(--spacing-sm);
     }
 
     .btn-cta-hero {
         padding: 1rem 2rem;
         font-size: 1rem;
+        width: 100%;
     }
 
     .hero-trust-badges {
@@ -1433,6 +1455,7 @@ body {
         height: 56px;
     }
 }
+
 /* ===========================
    Contact Modal Styles
    =========================== */
