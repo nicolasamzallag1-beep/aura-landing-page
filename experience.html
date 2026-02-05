@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Découvrez AURA - Votre Parcours de Bien-Être</title>
+    <meta name="description" content="Découvrez tout ce qu'AURA a à offrir pour votre bien-être mental et émotionnel">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Additional styles specific to experience page */
+        .experience-hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: var(--spacing-4xl) var(--spacing-xl);
+            background: linear-gradient(135deg, rgba(167, 139, 250, 0.1) 0%, rgba(139, 92, 246, 0.05) 100%);
+        }
+
+        .experience-hero-content {
+            max-width: 800px;
+        }
+
+        .experience-title {
+            font-family: var(--font-display);
+            font-size: 3.5rem;
+            margin-bottom: var(--spacing-lg);
+            color: var(--color-neutral-900);
+            font-weight: 500;
+        }
+
+        .experience-subtitle {
+            font-size: 1.25rem;
+            color: var(--color-neutral-600);
+            line-height: 1.8;
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--spacing-xl);
+            margin-bottom: var(--spacing-4xl);
+        }
+
+        .module-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            padding: var(--spacing-2xl);
+            transition: all var(--transition-base);
+        }
+
+        .module-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(31, 38, 135, 0.15);
+        }
+
+        .module-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: var(--radius-lg);
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--spacing-lg);
+            color: white;
+            font-size: 2rem;
+        }
+
+        .module-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--color-neutral-900);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .module-description {
+            color: var(--color-neutral-600);
+            line-height: 1.7;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .module-features {
+            list-style: none;
+            padding: 0;
+        }
+
+        .module-features li {
+            padding: var(--spacing-sm) 0;
+            color: var(--color-neutral-700);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .module-features li::before {
+            content: "✓";
+            color: var(--color-lavender-500);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .how-it-works {
+            background: linear-gradient(135deg, rgba(110, 231, 183, 0.05) 0%, rgba(52, 211, 153, 0.05) 100%);
+            padding: var(--spacing-4xl) var(--spacing-xl);
+            border-radius: var(--radius-2xl);
+            margin-bottom: var(--spacing-4xl);
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-2xl);
+            margin-top: var(--spacing-2xl);
+        }
+
+        .step-card {
+            text-align: center;
+            padding: var(--spacing-xl);
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--gradient-accent);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0 auto var(--spacing-lg);
+        }
+
+        .step-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--color-neutral-900);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .step-description {
+            color: var(--color-neutral-600);
+            line-height: 1.6;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            color: var(--color-lavender-500);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all var(--transition-base);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .back-link:hover {
+            gap: var(--spacing-md);
+            color: var(--color-lavender-600);
+        }
+
+        @media (max-width: 768px) {
+            .experience-title {
+                font-size: 2.5rem;
+            }
+
+            .modules-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">✦</span>
+                <span class="logo-text">AURA</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html#features">Fonctionnalités</a>
+                <a href="index.html#about">À propos</a>
+                <a href="index.html#testimonials">Témoignages</a>
+                <a href="index.html" class="btn-primary">Retour</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="experience-hero">
+        <div class="experience-hero-content">
+            <a href="index.html" class="back-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7" />
+                </svg>
+                Retour à l'accueil
+            </a>
+            <h1 class="experience-title">Découvrez votre parcours AURA</h1>
+            <p class="experience-subtitle">
+                Une expérience complète de bien-être mental, conçue pour vous accompagner à chaque étape de votre voyage
+                vers la sérénité et l'équilibre émotionnel.
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Modules Section -->
+        <section class="section">
+            <h2 class="section-title">Ce que vous trouverez dans AURA</h2>
+            <p class="section-subtitle">Des outils puissants pour cultiver votre bien-être au quotidien</p>
+
+            <div class="modules-grid">
+                <!-- Module 1: Méditation Guidée -->
+                <div class="module-card">
+                    <div class="module-icon">🧘</div>
+                    <h3 class="module-title">Méditation Guidée</h3>
+                    <p class="module-description">
+                        Des séances de méditation personnalisées adaptées à votre niveau et vos objectifs, guidées par
+                        des voix apaisantes.
+                    </p>
+                    <ul class="module-features">
+                        <li>Plus de 100 méditations guidées</li>
+                        <li>Programmes de 7, 14 et 30 jours</li>
+                        <li>Méditations pour débutants et avancés</li>
+                        <li>Thèmes variés : stress, sommeil, focus</li>
+                    </ul>
+                </div>
+
+                <!-- Module 2: Journal Intelligent -->
+                <div class="module-card">
+                    <div class="module-icon">📝</div>
+                    <h3 class="module-title">Journal Intelligent</h3>
+                    <p class="module-description">
+                        Un espace privé pour noter vos pensées, émotions et gratitudes avec des insights basés sur l'IA.
+                    </p>
+                    <ul class="module-features">
+                        <li>Analyse d'humeur quotidienne</li>
+                        <li>Prompts de réflexion personnalisés</li>
+                        <li>Visualisation de vos progrès</li>
+                        <li>100% privé et sécurisé</li>
+                    </ul>
+                </div>
+
+                <!-- Module 3: Exercices de Respiration -->
+                <div class="module-card">
+                    <div class="module-icon">🌬️</div>
+                    <h3 class="module-title">Exercices de Respiration</h3>
+                    <p class="module-description">
+                        Techniques de respiration scientifiquement prouvées pour réduire le stress et améliorer votre
+                        bien-être.
+                    </p>
+                    <ul class="module-features">
+                        <li>Respiration 4-7-8 pour le sommeil</li>
+                        <li>Cohérence cardiaque</li>
+                        <li>Respiration box pour le calme</li>
+                        <li>Guides visuels et audio</li>
+                    </ul>
+                </div>
+
+                <!-- Module 4: Suivi de Progression -->
+                <div class="module-card">
+                    <div class="module-icon">📊</div>
+                    <h3 class="module-title">Suivi de Progression</h3>
+                    <p class="module-description">
+                        Visualisez votre évolution avec des statistiques détaillées et des insights personnalisés.
+                    </p>
+                    <ul class="module-features">
+                        <li>Graphiques d'humeur et d'énergie</li>
+                        <li>Streaks de méditation</li>
+                        <li>Badges et récompenses</li>
+                        <li>Rapports hebdomadaires</li>
+                    </ul>
+                </div>
+
+                <!-- Module 5: Sons Apaisants -->
+                <div class="module-card">
+                    <div class="module-icon">🎵</div>
+                    <h3 class="module-title">Sons Apaisants</h3>
+                    <p class="module-description">
+                        Une bibliothèque de sons naturels et musiques zen pour accompagner vos moments de détente.
+                    </p>
+                    <ul class="module-features">
+                        <li>Pluie, océan, forêt, feu de camp</li>
+                        <li>Musiques binaurales</li>
+                        <li>Fréquences de guérison</li>
+                        <li>Mixage personnalisé</li>
+                    </ul>
+                </div>
+
+                <!-- Module 6: Communauté Bienveillante -->
+                <div class="module-card">
+                    <div class="module-icon">💜</div>
+                    <h3 class="module-title">Communauté Bienveillante</h3>
+                    <p class="module-description">
+                        Rejoignez une communauté de personnes partageant les mêmes valeurs de bien-être et de croissance
+                        personnelle.
+                    </p>
+                    <ul class="module-features">
+                        <li>Forums de discussion modérés</li>
+                        <li>Groupes de soutien thématiques</li>
+                        <li>Événements en ligne mensuels</li>
+                        <li>Partage d'expériences anonyme</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section class="how-it-works">
+            <div class="container">
+                <h2 class="section-title">Comment ça marche ?</h2>
+                <p class="section-subtitle">Commencez votre voyage en 4 étapes simples</p>
+
+                <div class="steps-container">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h3 class="step-title">Créez votre profil</h3>
+                        <p class="step-description">
+                            Répondez à quelques questions pour personnaliser votre expérience AURA selon vos besoins.
+                        </p>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h3 class="step-title">Choisissez vos objectifs</h3>
+                        <p class="step-description">
+                            Définissez ce que vous souhaitez améliorer : sommeil, stress, concentration, ou autre.
+                        </p>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h3 class="step-title">Suivez votre programme</h3>
+                        <p class="step-description">
+                            Recevez un programme personnalisé avec des exercices quotidiens adaptés à votre rythme.
+                        </p>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <h3 class="step-title">Évoluez sereinement</h3>
+                        <p class="step-description">
+                            Suivez vos progrès, ajustez votre parcours et célébrez vos victoires.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta">
+            <div class="cta-content">
+                <h2 class="cta-title">Prêt à commencer votre transformation ?</h2>
+                <p class="cta-description">
+                    Rejoignez plus de 500 000 personnes qui ont déjà trouvé leur paix intérieure avec AURA.
+                </p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn-primary btn-large">
+                        Commencer gratuitement
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                    <a href="index.html" class="btn-secondary btn-large">Retour à l'accueil</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-simple">
+            <div class="logo">
+                <span class="logo-icon">✦</span>
+                <span class="logo-text">AURA</span>
+            </div>
+            <div class="footer-links-simple">
+                <a href="#">Mentions légales</a>
+                <span class="footer-separator">•</span>
+                <a href="#">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Music Player (reused from landing page) -->
+    <div class="music-player" id="musicPlayer">
+        <button class="music-btn" id="musicBtn" aria-label="Toggle zen music">
+            <svg class="music-icon play-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+            <svg class="music-icon pause-icon hidden" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <rect x="6" y="4" width="4" height="16"></rect>
+                <rect x="14" y="4" width="4" height="16"></rect>
+            </svg>
+        </button>
+        <span class="music-label">Musique zen</span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
