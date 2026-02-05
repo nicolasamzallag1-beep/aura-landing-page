@@ -507,3 +507,124 @@ const zenCarousel = new ZenCarousel();
 console.log('🌟 AURA - Votre sanctuaire de bien-être mental est prêt');
 console.log('🎵 Lecteur de musique zen initialisé');
 console.log('🎠 Carrousel zen initialisé');
+
+// ===========================
+// Contact Modal Logic
+// ===========================
+class ContactModal {
+    constructor() {
+        this.modal = document.getElementById('contactModal');
+        this.form = document.getElementById('contactForm');
+        this.successMessage = document.getElementById('formSuccess');
+        this.openBtns = [
+            document.getElementById('contactLink'),
+            document.getElementById('contactLinkExp')
+        ].filter(btn => btn !== null);
+        this.closeBtn = document.querySelector('.close-modal');
+        this.closeSuccessBtn = document.querySelector('.btn-close-success');
+
+        this.init();
+    }
+
+    init() {
+        if (!this.modal) return;
+
+        // Open modal
+        this.openBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.open();
+            });
+        });
+
+        // Close modal
+        this.closeBtn?.addEventListener('click', () => this.close());
+        this.closeSuccessBtn?.addEventListener('click', () => this.close());
+
+        // Close on outside click
+        window.addEventListener('click', (e) => {
+            if (e.target === this.modal) {
+                this.close();
+            }
+        });
+
+        // Close on Escape key
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.modal.classList.contains('active')) {
+                this.close();
+            }
+        });
+
+        // Form submission
+        this.form?.addEventListener('submit', (e) => this.handleSubmit(e));
+    }
+
+    open() {
+        this.modal.style.display = 'flex';
+        // Force reflow for animation
+        this.modal.offsetHeight;
+        this.modal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent scroll
+    }
+
+    close() {
+        this.modal.classList.remove('active');
+        document.body.style.overflow = '';
+        
+        setTimeout(() => {
+            this.modal.style.display = 'none';
+            // Reset form and message state
+            this.form.classList.remove('hidden');
+            this.successMessage.classList.add('hidden');
+            this.form.reset();
+        }, 300); // Match CSS transition
+    }
+
+    async handleSubmit(e) {
+        e.preventDefault();
+        const submitBtn = this.form.querySelector('.btn-submit');
+        const originalBtnText = submitBtn.innerHTML;
+        
+        // Show loading state
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span>Envoi en cours...</span>';
+
+        const formData = new FormData(this.form);
+        
+        try {
+            const response = await fetch(this.form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                this.showSuccess();
+            } else {
+                const data = await response.json();
+                if (Object.hasOwn(data, 'errors')) {
+                    alert(data["errors"].map(error => error["message"]).join(", "));
+                } else {
+                    alert("Oups ! Un problème est survenu lors de l'envoi.");
+                }
+            }
+        } catch (error) {
+            alert("Oups ! Un problème est survenu lors de l'envoi.");
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnText;
+        }
+    }
+
+    showSuccess() {
+        this.form.classList.add('hidden');
+        this.successMessage.classList.remove('hidden');
+    }
+}
+
+// Initialize the contact modal
+document.addEventListener('DOMContentLoaded', () => {
+    new ContactModal();
+});
