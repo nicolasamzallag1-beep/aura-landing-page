@@ -1063,6 +1063,107 @@ body {
 }
 
 /* ===========================
+   Music Player
+   =========================== */
+.music-player {
+    position: fixed;
+    bottom: var(--spacing-xl);
+    right: var(--spacing-xl);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: var(--radius-full);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    transition: all var(--transition-base);
+    cursor: pointer;
+}
+
+.music-player:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(31, 38, 135, 0.2);
+    border-color: rgba(167, 139, 250, 0.3);
+}
+
+.music-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: none;
+    background: var(--gradient-primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    position: relative;
+    overflow: hidden;
+}
+
+.music-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.music-btn:hover::before {
+    width: 100px;
+    height: 100px;
+}
+
+.music-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 20px rgba(167, 139, 250, 0.4);
+}
+
+.music-icon {
+    position: relative;
+    z-index: 1;
+    transition: all var(--transition-base);
+}
+
+.music-icon.hidden {
+    display: none;
+}
+
+.music-label {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--color-neutral-700);
+    white-space: nowrap;
+}
+
+/* Playing animation */
+.music-player.playing .pause-icon {
+    animation: pulse-icon 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-icon {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.7;
+    }
+}
+
+/* ===========================
    Responsive Design
    =========================== */
 @media (max-width: 968px) {
@@ -1169,5 +1270,20 @@ body {
 
     .hero-animated-visual {
         display: none;
+    }
+
+    .music-player {
+        bottom: var(--spacing-md);
+        right: var(--spacing-md);
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+
+    .music-label {
+        display: none;
+    }
+
+    .music-btn {
+        width: 56px;
+        height: 56px;
     }
 }

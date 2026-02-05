@@ -22,7 +22,7 @@ const nav = document.querySelector('.nav');
 
 window.addEventListener('scroll', () => {
     const currentScroll = window.pageYOffset;
-    
+
     if (currentScroll > 100) {
         nav.style.padding = '0.75rem 0';
         nav.style.boxShadow = '0 4px 20px rgba(31, 38, 135, 0.1)';
@@ -30,7 +30,7 @@ window.addEventListener('scroll', () => {
         nav.style.padding = '1.5rem 0';
         nav.style.boxShadow = 'none';
     }
-    
+
     lastScroll = currentScroll;
 });
 
@@ -72,7 +72,7 @@ const floatingCards = document.querySelectorAll('.floating-card');
 window.addEventListener('scroll', () => {
     const scrolled = window.pageYOffset;
     const rate = scrolled * 0.3;
-    
+
     if (heroVisual) {
         heroVisual.style.transform = `translateY(${rate}px)`;
     }
@@ -84,12 +84,12 @@ window.addEventListener('scroll', () => {
 document.addEventListener('mousemove', (e) => {
     const mouseX = e.clientX / window.innerWidth;
     const mouseY = e.clientY / window.innerHeight;
-    
+
     floatingCards.forEach((card, index) => {
         const speed = (index + 1) * 10;
         const x = (mouseX - 0.5) * speed;
         const y = (mouseY - 0.5) * speed;
-        
+
         card.style.transform = `translate(${x}px, ${y}px)`;
     });
 });
@@ -102,17 +102,17 @@ function createRipple(event) {
     const ripple = document.createElement('span');
     const diameter = Math.max(button.clientWidth, button.clientHeight);
     const radius = diameter / 2;
-    
+
     ripple.style.width = ripple.style.height = `${diameter}px`;
     ripple.style.left = `${event.clientX - button.offsetLeft - radius}px`;
     ripple.style.top = `${event.clientY - button.offsetTop - radius}px`;
     ripple.classList.add('ripple');
-    
+
     const rippleElement = button.querySelector('.ripple');
     if (rippleElement) {
         rippleElement.remove();
     }
-    
+
     button.appendChild(ripple);
 }
 
@@ -151,7 +151,7 @@ function animateCounter(element, target, duration = 2000) {
     const start = 0;
     const increment = target / (duration / 16);
     let current = start;
-    
+
     const timer = setInterval(() => {
         current += increment;
         if (current >= target) {
@@ -178,7 +178,7 @@ const statsObserver = new IntersectionObserver((entries) => {
         if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
             entry.target.classList.add('animated');
             const statNumbers = entry.target.querySelectorAll('.stat-number');
-            
+
             // Animate each stat
             animateCounter(statNumbers[0], 500000);
             statNumbers[1].textContent = '4.9';
@@ -198,11 +198,11 @@ if (heroStats) {
 const testimonialCards = document.querySelectorAll('.testimonial-card');
 
 testimonialCards.forEach(card => {
-    card.addEventListener('mouseenter', function() {
+    card.addEventListener('mouseenter', function () {
         this.style.background = 'rgba(255, 255, 255, 0.85)';
     });
-    
-    card.addEventListener('mouseleave', function() {
+
+    card.addEventListener('mouseleave', function () {
         this.style.background = 'var(--glass-bg)';
     });
 });
@@ -217,16 +217,16 @@ featureCards.forEach(card => {
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        
+
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
-        
+
         const rotateX = (y - centerY) / 10;
         const rotateY = (centerX - x) / 10;
-        
+
         card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
     });
-    
+
     card.addEventListener('mouseleave', () => {
         card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
     });
@@ -246,7 +246,7 @@ if ('IntersectionObserver' in window) {
             }
         });
     });
-    
+
     const images = document.querySelectorAll('img[data-src]');
     images.forEach(img => imageObserver.observe(img));
 }
@@ -274,4 +274,159 @@ const debouncedScroll = debounce(() => {
 
 window.addEventListener('scroll', debouncedScroll);
 
+// ===========================
+// Zen Music Player with Web Audio API
+// ===========================
+class ZenMusicPlayer {
+    constructor() {
+        this.audioContext = null;
+        this.oscillators = [];
+        this.gainNodes = [];
+        this.isPlaying = false;
+        this.masterGain = null;
+
+        this.initializeUI();
+    }
+
+    initializeUI() {
+        const musicBtn = document.getElementById('musicBtn');
+        const musicPlayer = document.getElementById('musicPlayer');
+
+        if (musicBtn) {
+            musicBtn.addEventListener('click', () => this.toggle());
+        }
+    }
+
+    createAudioContext() {
+        if (!this.audioContext) {
+            this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            this.masterGain = this.audioContext.createGain();
+            this.masterGain.connect(this.audioContext.destination);
+            this.masterGain.gain.value = 0;
+        }
+    }
+
+    createZenSoundscape() {
+        // Create multiple oscillators for a rich ambient sound
+        const frequencies = [
+            { freq: 174, type: 'sine', volume: 0.15 },      // Root frequency
+            { freq: 261.63, type: 'sine', volume: 0.12 },   // C note (calm)
+            { freq: 329.63, type: 'sine', volume: 0.10 },   // E note (harmony)
+            { freq: 392, type: 'sine', volume: 0.08 },      // G note (peace)
+            { freq: 523.25, type: 'sine', volume: 0.06 }    // High C (ethereal)
+        ];
+
+        frequencies.forEach((config, index) => {
+            const oscillator = this.audioContext.createOscillator();
+            const gainNode = this.audioContext.createGain();
+
+            oscillator.type = config.type;
+            oscillator.frequency.value = config.freq;
+
+            // Add slight detuning for richness
+            oscillator.detune.value = Math.random() * 10 - 5;
+
+            gainNode.gain.value = config.volume;
+
+            oscillator.connect(gainNode);
+            gainNode.connect(this.masterGain);
+
+            oscillator.start();
+
+            // Add subtle frequency modulation for organic feel
+            const lfoFreq = 0.1 + Math.random() * 0.2;
+            const lfo = this.audioContext.createOscillator();
+            const lfoGain = this.audioContext.createGain();
+
+            lfo.frequency.value = lfoFreq;
+            lfoGain.gain.value = 2;
+
+            lfo.connect(lfoGain);
+            lfoGain.connect(oscillator.frequency);
+            lfo.start();
+
+            this.oscillators.push(oscillator);
+            this.oscillators.push(lfo);
+            this.gainNodes.push(gainNode);
+        });
+    }
+
+    fadeIn(duration = 2) {
+        if (this.masterGain) {
+            const currentTime = this.audioContext.currentTime;
+            this.masterGain.gain.cancelScheduledValues(currentTime);
+            this.masterGain.gain.setValueAtTime(0, currentTime);
+            this.masterGain.gain.linearRampToValueAtTime(0.3, currentTime + duration);
+        }
+    }
+
+    fadeOut(duration = 1.5) {
+        if (this.masterGain) {
+            const currentTime = this.audioContext.currentTime;
+            this.masterGain.gain.cancelScheduledValues(currentTime);
+            this.masterGain.gain.setValueAtTime(this.masterGain.gain.value, currentTime);
+            this.masterGain.gain.linearRampToValueAtTime(0, currentTime + duration);
+
+            setTimeout(() => this.stop(), duration * 1000);
+        }
+    }
+
+    play() {
+        this.createAudioContext();
+
+        if (this.audioContext.state === 'suspended') {
+            this.audioContext.resume();
+        }
+
+        this.createZenSoundscape();
+        this.fadeIn();
+        this.isPlaying = true;
+        this.updateUI();
+    }
+
+    stop() {
+        this.oscillators.forEach(osc => {
+            try {
+                osc.stop();
+                osc.disconnect();
+            } catch (e) {
+                // Oscillator might already be stopped
+            }
+        });
+
+        this.oscillators = [];
+        this.gainNodes = [];
+        this.isPlaying = false;
+        this.updateUI();
+    }
+
+    toggle() {
+        if (this.isPlaying) {
+            this.fadeOut();
+        } else {
+            this.play();
+        }
+    }
+
+    updateUI() {
+        const playIcon = document.querySelector('.play-icon');
+        const pauseIcon = document.querySelector('.pause-icon');
+        const musicPlayer = document.getElementById('musicPlayer');
+
+        if (this.isPlaying) {
+            playIcon?.classList.add('hidden');
+            pauseIcon?.classList.remove('hidden');
+            musicPlayer?.classList.add('playing');
+        } else {
+            playIcon?.classList.remove('hidden');
+            pauseIcon?.classList.add('hidden');
+            musicPlayer?.classList.remove('playing');
+        }
+    }
+}
+
+// Initialize the zen music player
+const zenMusic = new ZenMusicPlayer();
+
 console.log('🌟 AURA - Votre sanctuaire de bien-être mental est prêt');
+console.log('🎵 Lecteur de musique zen initialisé');
