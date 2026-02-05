@@ -412,6 +412,7 @@ body {
     animation: bounce 2s ease-in-out infinite;
     cursor: pointer;
     transition: color var(--transition-fast);
+    text-decoration: none;
 }
 
 .scroll-indicator:hover {
